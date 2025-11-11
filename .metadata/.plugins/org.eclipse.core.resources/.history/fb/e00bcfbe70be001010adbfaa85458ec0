@@ -1,0 +1,26 @@
+package in.ankit.beans.queueconfig;
+
+
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.context.annotation.Configuration;
+
+import in.ankit.entity.TaskEntity;
+import in.ankit.queue.ReceiverHandler;
+
+
+@Configuration
+public class ListenerConfig {
+
+    private static final String QUEUE_NAME = "book-loan-queue";
+    private final ReceiverHandler receiverHandler;
+
+    public ListenerConfig(ReceiverHandler receiverHandler) {
+        this.receiverHandler = receiverHandler;
+    }
+
+    @RabbitListener(queues = QUEUE_NAME)
+    public void listen(TaskEntity loanTask) {
+        receiverHandler.loanBook(loanTask);
+    }
+
+}

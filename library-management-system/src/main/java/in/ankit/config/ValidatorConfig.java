@@ -1,0 +1,45 @@
+package in.ankit.config;
+
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
+
+import in.ankit.service.BookService;
+import in.ankit.service.RoleService;
+import in.ankit.service.RoomService;
+import in.ankit.service.UserService;
+import in.ankit.validatorservice.BookValidator;
+import in.ankit.validatorservice.RoleValidator;
+import in.ankit.validatorservice.RoomValidator;
+import in.ankit.validatorservice.UserValidator;
+
+
+@Configuration
+public class ValidatorConfig {
+
+    @Bean
+    @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
+    public static UserValidator createPersonValidator(UserService userService) {
+        return new UserValidator(userService);
+    }
+
+    @Bean
+    @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
+    public static BookValidator bookValidator(BookService bookService) {
+        return new BookValidator(bookService);
+    }
+
+    @Bean
+    @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
+    public static RoleValidator roleValidator(RoleService roleService) {
+        return new RoleValidator(roleService);
+    }
+
+    @Bean
+    @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
+    public static RoomValidator roomValidator(RoomService roomService) {
+        return new RoomValidator(roomService);
+    }
+
+}
